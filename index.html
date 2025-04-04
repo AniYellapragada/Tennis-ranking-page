@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Rankings</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        a { text-decoration: none; color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Live Player Rankings</h1>
+    <table id="rankings">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rankings will be dynamically populated -->
+        </tbody>
+    </table>
+    <br>
+    <a href="update-points.html">Update Player Points</a>
+
+    <script>
+        const rankingsTable = document.getElementById('rankings').querySelector('tbody');
+        fetch('players.json') // Replace with your backend API endpoint
+            .then(response => response.json())
+            .then(players => {
+                players.sort((a, b) => b.points - a.points).forEach((player, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td><a href="player-details.html?name=${encodeURIComponent(player.name)}">${player.name}</a></td>
+                        <td>${player.points}</td>
+                    `;
+                    rankingsTable.appendChild(row);
+                });
+            });
+    </script>
+</body>
+</html>

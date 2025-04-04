@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Details</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Player Details</h1>
+    <div id="player-info">
+        <!-- Player details will be dynamically populated -->
+    </div>
+    <a href="index.html">Back to Rankings</a>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerName = urlParams.get('name');
+
+        // Example data (replace with API calls in a real implementation)
+        const players = [
+            { name: "Player 1", points: 5000 },
+            { name: "Player 2", points: 4500 },
+            { name: "Player 3", points: 4000 }
+        ];
+
+        const player = players.find(p => p.name === playerName);
+        const playerInfoDiv = document.getElementById('player-info');
+
+        if (player) {
+            playerInfoDiv.innerHTML = `
+                <p><strong>Name:</strong> ${player.name}</p>
+                <p><strong>Points:</strong> ${player.points}</p>
+            `;
+        } else {
+            playerInfoDiv.innerHTML = `<p>Player not found.</p>`;
+        }
+    </script>
+</body>
+</html>
